@@ -1,0 +1,235 @@
+#include <iostream>
+#include <conio.h>
+#include <iomanip>
+#include <string.h>
+using namespace std;
+#define fila 20
+#define col 20
+struct tvector
+{
+	int v[fila];
+};
+void cargar(tvector mat[fila][col], int n)
+{
+	int i,j,k;
+	for (i=0;i<n;i++)
+	{
+		for (j=0;j<n;j++)
+		{
+			for (k=0;k<n;k++)
+			{
+				cout<<"elemento "<<"[ "<<i<<" ]"<<" "<<"[ "<<j<<" ]"<<" :";
+				cin>>mat[i][j].v[k];
+			}
+		}
+	}
+}
+void cargarmat(tvector mat[fila][col], int n, int m, int n2)
+{
+	int i,j,k;
+	for (i=0;i<n;i++)
+	{
+		for (j=0;j<m;j++)
+		{
+			for (k=0;k<n2;k++)
+			{
+				cout<<"elemento "<<"[ "<<i<<" ]"<<" "<<"[ "<<j<<" ]"<<" :";
+				cin>>mat[i][j].v[k];
+			}
+		}
+	}
+}
+void mostrarmat(tvector mat[fila][col], int n,int m, int n2)
+{
+	int i,j,k;
+	for (i=0;i<n;i++)
+	{
+		for (j=0;j<m;j++)
+		{
+			for (k=0;k<n2;k++)
+			{
+				cout<< setw(4) <<mat[i][j].v[k]<<" ";
+			}
+			cout<<"    ";
+		}
+		cout<<endl;
+	}
+}
+void mostrar(tvector mat[fila][col], int n)
+{
+	int i,j,k;
+	for (i=0;i<n;i++)
+	{
+		for (j=0;j<n;j++)
+		{
+			for (k=0;k<n;k++)
+			{
+				cout<< setw(4) <<mat[i][j].v[k]<<"";
+			}
+			cout<<"   ";
+		}
+		cout<<endl;
+	}
+}
+void cargaraleatorio(tvector mat[fila][col],int n)
+{
+	int i,j,k;
+	for (i=0;i<n;i++)
+	{
+		for (j=0;j<n;j++)
+		{
+			for (k=0;k<n;k++)
+			{
+				mat[i][j].v[k]=rand()%(50-1);
+			}
+		}
+	}
+}
+void cargaraleatoriomat(tvector mat[fila][col],int n, int m, int n2)
+{
+	int i,j,k;
+	for (i=0;i<n;i++)
+	{
+		for (j=0;j<m;j++)
+		{
+			for (k=0;k<n2;k++)
+			{
+				mat[i][j].v[k]=rand()%(50-1);
+			}
+		}
+	}
+}
+void transpuesta(tvector mat[fila][col],int n)
+{
+	int i, j, k;
+	tvector aux;
+	for (i=0;i<n;i++)
+	{
+		for (j=0;j<n;j++)
+		{
+			if (i<j)
+			{
+				aux=mat[i][j];
+				mat[i][j]=mat[j][i];
+				mat[j][i]=aux;
+			}
+		}
+	}
+}
+bool verificarprimo(int n)
+{
+	int i;
+	bool k=true;
+	for (i=2;i<n-1;i++)
+	{
+		if(n%i==0)
+		{
+			k=false;
+		}
+	}
+	return(k);
+}
+void ordenarvec(int v[],int n)
+{
+	int i,j,aux;
+	for (i=0;i<n;i++)
+	{
+		for (j=i+1;j<n;j++)
+		{
+			if (v[i]>v[j])
+			{
+				aux=v[i];
+				v[i]=v[j];
+				v[j]=aux;
+			}
+		}
+	}
+}
+void ordenarmatriz(tvector mat[fila][col], int n)
+{
+	int i,j,k;
+	for (i=0;i<n;i++)
+	{
+		for (j=0;j<n;j++)
+		{
+			for (k=0;k<n;k++)
+			{
+				if (verificarprimo(mat[i][j].v[k])==true)
+				{
+					ordenarvec(mat[i][j].v,n);
+				}
+			}
+		}
+	}
+}
+void eliminarfila(tvector mat[fila][col], int &n, int &m, int n2)
+{
+	int i,j,k;
+	for (i=0;i<n;i++)
+	{
+		for (j=0;j<m;j++)
+		{
+			for (k=0;k<n2;k++)
+			{
+				if (verificarprimo(mat[i][j].v[k])==true)
+				{
+					
+				}
+			}
+		}
+	}
+}
+void main()
+{
+	int n,op,m,n2;
+	tvector mat[fila][col];
+	do
+	{
+		cout<<"****** MENU ******";
+		cout<<endl<<"1. Cargar aleatorio";
+		cout<<endl<<"2. Transpuesta";
+		cout<<endl<<"3. Ordenar la matriz si un numero es primo";
+		cout<<endl<<"4. eliminar la fila si tiene un primo";
+		cout<<endl<<"0. Salir";
+		cout<<endl<<"ingrese opcion:";
+		cin>>op;
+		switch (op)
+		{
+			case 1:	cout<<"ingrese numero de fila y columna:";
+					cin>>n; 
+					cargaraleatorio(mat,n);
+					cout<<"la matriz es:"<<endl<<endl;
+					mostrar(mat,n);
+					cout<<endl;
+					break;
+			case 2:	cout<<"ingrese numero de fila y columna:";
+					cin>>n;
+					cargaraleatorio(mat,n);
+					cout<<endl<<"la matriz es:"<<endl<<endl;
+					mostrar(mat,n);
+					cout<<endl<<"la tranpuesta es:"<<endl<<endl;
+					transpuesta(mat,n);
+					mostrar(mat,n);
+					cout<<endl;
+					break;
+			case 3:	cout<<"ingrese numero de fila y columna:";
+					cin>>n;
+					cargaraleatorio(mat,n);
+					cout<<endl<<"la matriz es:"<<endl<<endl;
+					mostrar(mat,n);
+					cout<<endl<<"la matriz ordenada es:"<<endl<<endl;
+					ordenarmatriz(mat,n);
+					mostrar(mat,n);
+					cout<<endl;
+					break;
+			case 4:	cout<<"ingrese numero de fila:";
+					cin>>n;
+					cout<<"ingrese numero de columna:";
+					cin>>m;
+					cout<<"ingrese numero de elementos del vector:";
+					cin>>n2;
+					cargaraleatoriomat(mat,n,m,n2);
+					mostrarmat(mat,n,m,n2);
+		}
+	}while(op>0);
+}
